@@ -34,9 +34,9 @@
     "story": {
       "type": "arc-story",
       "blocks": {
-        "s1": { "type": "stat", "settings": { "number": 90, "suffix": "", "label": "Days of maceration" } },
+        "s1": { "type": "stat", "settings": { "number": 90, "label": "Days of maceration" } },
         "s2": { "type": "stat", "settings": { "number": 22, "suffix": "%", "label": "Perfume concentration" } },
-        "s3": { "type": "stat", "settings": { "number": 200, "suffix": "", "label": "Flacons per batch" } }
+        "s3": { "type": "stat", "settings": { "number": 200, "label": "Flacons per batch" } }
       },
       "block_order": ["s1", "s2", "s3"],
       "settings": {
