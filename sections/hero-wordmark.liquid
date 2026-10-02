@@ -1,0 +1,77 @@
+{%- comment -%}
+  Hero inspired by editorial perfume layouts: oversized serif wordmark with the
+  flacon breaking through it. Pinned on scroll — letters drift apart while the
+  bottle rights itself and descends into the next chapter.
+{%- endcomment -%}
+{%- liquid
+  assign word = section.settings.wordmark | default: shop.name | upcase
+  assign letters = word | split: ''
+  assign half = letters.size | divided_by: 2
+-%}
+<section class="hero" data-hero id="hero-{{ section.id }}">
+  <div class="hero__stage" data-hero-stage>
+    <div class="hero__lotus" aria-hidden="true" data-hero-lotus>
+      <img src="{{ 'lotus.webp' | asset_url }}" alt="" width="1200" height="1200" fetchpriority="low">
+    </div>
+    <div class="hero__glow" aria-hidden="true" data-hero-glow></div>
+
+    <p class="hero__kicker" data-hero-fade>
+      <span class="serif-light">{{ section.settings.kicker }}</span>
+    </p>
+    <p class="hero__corner hero__corner--tr eyebrow" data-hero-fade>{{ section.settings.corner_label }}</p>
+
+    <div class="hero__emblem" data-hero-fade>{% render 'icon-lotus' %}</div>
+
+    <h1 class="hero__word" aria-label="{{ word }}" data-hero-word>
+      {%- for l in letters -%}
+        <span class="hero__letter{% if forloop.index0 < half %} is-left{% else %} is-right{% endif %}" data-i="{{ forloop.index0 }}" aria-hidden="true"><span>{{ l }}</span></span>
+      {%- endfor -%}
+    </h1>
+
+    <div class="hero__bottle" data-hero-bottle>
+      <div class="hero__bottle-inner">
+        <div class="hero__bottle-tilt" data-hero-tilt>
+          {%- if section.settings.bottle != blank -%}
+            {{ section.settings.bottle | image_url: width: 1200 | image_tag: loading: 'eager', fetchpriority: 'high', alt: section.settings.bottle.alt | default: word }}
+          {%- else -%}
+            <img src="{{ 'bottle-hero.webp' | asset_url }}" alt="{{ word }} amber eau de parfum" width="900" height="1400" fetchpriority="high">
+          {%- endif -%}
+        </div>
+        <span class="hero__bottle-shadow" aria-hidden="true"></span>
+      </div>
+    </div>
+
+    <div class="hero__copy" data-hero-fade>
+      <p>{{ section.settings.text }}</p>
+      <a href="{{ section.settings.cta_link | default: routes.all_products_collection_url }}" class="btn btn--gold" data-magnetic data-cursor-text="Shop">
+        <span>{{ section.settings.cta_label }}</span>
+        <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+      </a>
+    </div>
+
+    <div class="hero__foot" data-hero-fade>
+      <span class="serif-light">{{ section.settings.foot_left }}</span>
+      <span class="hero__scroll"><i></i>{{ 'general.scroll' | t }}</span>
+      <span class="serif-light">{{ section.settings.foot_right }}</span>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Hero · Wordmark",
+  "class": "section-hero",
+  "settings": [
+    { "type": "text", "id": "wordmark", "label": "Wordmark", "default": "MIRA" },
+    { "type": "text", "id": "kicker", "label": "Top-left heading", "default": "Maison de Parfum" },
+    { "type": "text", "id": "corner_label", "label": "Top-right label", "default": "Collection N°01" },
+    { "type": "image_picker", "id": "bottle", "label": "Bottle cut-out (transparent PNG)" },
+    { "type": "textarea", "id": "text", "label": "Paragraph", "default": "Rare oud, Taif rose and saffron gathered across Arabia — composed by hand in Dubai and sealed in crystal, gold and light." },
+    { "type": "text", "id": "cta_label", "label": "Button label", "default": "Discover the collection" },
+    { "type": "url", "id": "cta_link", "label": "Button link" },
+    { "type": "text", "id": "foot_left", "label": "Bottom-left", "default": "Est. Dubai" },
+    { "type": "text", "id": "foot_right", "label": "Bottom-right", "default": "Eau de Parfum" }
+  ],
+  "presets": [{ "name": "Hero · Wordmark" }]
+}
+{% endschema %}

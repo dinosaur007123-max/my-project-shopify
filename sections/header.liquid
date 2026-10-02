@@ -1,0 +1,102 @@
+{%- liquid
+  assign menu = linklists[section.settings.menu]
+-%}
+<header class="site-header" data-header>
+  <div class="site-header__inner">
+    <a href="{{ routes.root_url }}" class="site-header__logo" data-magnetic aria-label="{{ shop.name }}">
+      {%- if section.settings.logo != blank -%}
+        {{ section.settings.logo | image_url: width: 300 | image_tag: loading: 'eager', class: 'site-header__logo-img', alt: shop.name }}
+      {%- else -%}
+        <span class="site-header__wordmark">{{ shop.name | upcase }}</span>
+        {% render 'icon-lotus' %}
+      {%- endif -%}
+    </a>
+
+    <nav class="site-header__nav" aria-label="{{ 'general.primary_nav' | t }}">
+      <ul>
+        {%- if menu.links.size > 0 -%}
+          {%- for link in menu.links -%}
+            <li><a href="{{ link.url }}" class="nav-link{% if link.active %} is-active{% endif %}" data-hover-text="{{ link.title | escape }}"><span>{{ link.title }}</span></a></li>
+          {%- endfor -%}
+        {%- else -%}
+          <li><a href="{{ routes.all_products_collection_url }}" class="nav-link" data-hover-text="Fragrances"><span>Fragrances</span></a></li>
+          <li><a href="#notes" class="nav-link" data-hover-text="Ingredients"><span>Ingredients</span></a></li>
+          <li><a href="#story" class="nav-link" data-hover-text="Maison"><span>Maison</span></a></li>
+          <li><a href="#voices" class="nav-link" data-hover-text="Reviews"><span>Reviews</span></a></li>
+        {%- endif -%}
+      </ul>
+    </nav>
+
+    <div class="site-header__actions">
+      <a href="{{ routes.search_url }}" class="icon-btn" aria-label="{{ 'general.search' | t }}" data-magnetic>
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.4"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+      </a>
+      {%- if shop.customer_accounts_enabled -%}
+        <a href="{{ routes.account_url }}" class="icon-btn" aria-label="{{ 'general.account' | t }}" data-magnetic>
+          <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.4"><circle cx="12" cy="8" r="4"/><path d="M4 21c1.5-4 4.5-6 8-6s6.5 2 8 6"/></svg>
+        </a>
+      {%- endif -%}
+      <a href="{{ routes.cart_url }}" class="site-header__cart" data-cart-toggle data-magnetic>
+        <span>{{ 'general.bag' | t }}</span>
+        <span class="site-header__count" data-cart-count>{{ cart.item_count }}</span>
+      </a>
+      <button type="button" class="menu-toggle" data-menu-toggle aria-expanded="false" aria-controls="MenuOverlay" aria-label="{{ 'general.menu' | t }}" data-magnetic>
+        <span></span><span></span>
+      </button>
+    </div>
+  </div>
+</header>
+
+<div class="menu-overlay" id="MenuOverlay" data-menu aria-hidden="true">
+  <div class="menu-overlay__media" aria-hidden="true">
+    {%- for i in (1..4) -%}
+      {%- capture key -%}menu_image_{{ i }}{%- endcapture -%}
+      {%- assign img = section.settings[key] -%}
+      <div class="menu-overlay__img" data-menu-img="{{ forloop.index0 }}">
+        {%- if img != blank -%}
+          {{ img | image_url: width: 900 | image_tag: loading: 'lazy', alt: '' }}
+        {%- else -%}
+          {%- case i -%}
+            {%- when 1 -%}<img src="{{ 'scene-bottle.webp' | asset_url }}" alt="" loading="lazy" width="900" height="1100">
+            {%- when 2 -%}<img src="{{ 'note-oud.webp' | asset_url }}" alt="" loading="lazy" width="900" height="1100">
+            {%- when 3 -%}<img src="{{ 'atelier.webp' | asset_url }}" alt="" loading="lazy" width="900" height="1100">
+            {%- else -%}<img src="{{ 'note-rose.webp' | asset_url }}" alt="" loading="lazy" width="900" height="1100">
+          {%- endcase -%}
+        {%- endif -%}
+      </div>
+    {%- endfor -%}
+  </div>
+  <nav class="menu-overlay__nav">
+    <ol>
+      {%- if menu.links.size > 0 -%}
+        {%- for link in menu.links limit: 4 -%}
+          <li><a href="{{ link.url }}" data-menu-link="{{ forloop.index0 }}"><em>0{{ forloop.index }}</em><span>{{ link.title }}</span></a></li>
+        {%- endfor -%}
+      {%- else -%}
+        <li><a href="{{ routes.all_products_collection_url }}" data-menu-link="0"><em>01</em><span>Fragrances</span></a></li>
+        <li><a href="#notes" data-menu-link="1"><em>02</em><span>Ingredients</span></a></li>
+        <li><a href="#story" data-menu-link="2"><em>03</em><span>The Maison</span></a></li>
+        <li><a href="#voices" data-menu-link="3"><em>04</em><span>Reviews</span></a></li>
+      {%- endif -%}
+    </ol>
+    <div class="menu-overlay__foot">
+      <span>{{ shop.name }} — Maison de Parfum</span>
+      <a href="mailto:{{ shop.email }}">{{ shop.email }}</a>
+    </div>
+  </nav>
+</div>
+
+{% schema %}
+{
+  "name": "Header",
+  "settings": [
+    { "type": "image_picker", "id": "logo", "label": "Logo (optional)" },
+    { "type": "link_list", "id": "menu", "label": "Menu", "default": "main-menu" },
+    { "type": "header", "content": "Menu overlay images" },
+    { "type": "image_picker", "id": "menu_image_1", "label": "Image 1" },
+    { "type": "image_picker", "id": "menu_image_2", "label": "Image 2" },
+    { "type": "image_picker", "id": "menu_image_3", "label": "Image 3" },
+    { "type": "image_picker", "id": "menu_image_4", "label": "Image 4" }
+  ]
+}
+{% endschema %}

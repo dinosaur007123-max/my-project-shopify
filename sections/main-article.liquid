@@ -1,0 +1,12 @@
+<article class="text-page container">
+  <header class="page-hero">
+    <p class="eyebrow">{{ article.published_at | date: '%d %B %Y' }}</p>
+    <h1 class="display-xl" data-split>{{ article.title }}</h1>
+  </header>
+  {%- if article.image -%}<figure class="text-page__cover" data-reveal>{{ article.image | image_url: width: 1800 | image_tag: loading: 'lazy', alt: article.title }}</figure>{%- endif -%}
+  <div class="rte text-page__body" data-reveal>{{ article.content }}</div>
+</article>
+
+{% schema %}
+{ "name": "Article", "settings": [] }
+{% endschema %}

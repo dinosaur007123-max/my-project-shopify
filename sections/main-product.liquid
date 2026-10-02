@@ -1,0 +1,102 @@
+{%- assign current_variant = product.selected_or_first_available_variant -%}
+<section class="pdp" data-pdp>
+  <div class="pdp__grid container">
+    <div class="pdp__gallery" data-pdp-gallery>
+      <span class="pdp__ghost" aria-hidden="true">{{ product.title | split: ' ' | last | upcase }}</span>
+      {%- for media in product.media -%}
+        <figure class="pdp__media{% if forloop.first %} is-first{% endif %}" data-reveal>
+          {%- case media.media_type -%}
+            {%- when 'image' -%}
+              <div data-tilt><div data-tilt-target>{{ media | image_url: width: 1400 | image_tag: loading: 'lazy', sizes: '(min-width: 990px) 55vw, 100vw', alt: media.alt | default: product.title }}</div></div>
+            {%- when 'video' -%}
+              {{ media | video_tag: autoplay: true, loop: true, muted: true, controls: false, playsinline: true }}
+            {%- else -%}
+              {{ media | media_tag }}
+          {%- endcase -%}
+        </figure>
+      {%- else -%}
+        <figure class="pdp__media is-first"><img src="{{ 'bottle-hero.webp' | asset_url }}" alt="{{ product.title }}" width="900" height="1400"></figure>
+      {%- endfor -%}
+    </div>
+
+    <div class="pdp__info">
+      <div class="pdp__sticky">
+        <nav class="breadcrumbs eyebrow" aria-label="Breadcrumb"><a href="{{ routes.root_url }}">{{ shop.name }}</a> / <a href="{{ routes.all_products_collection_url }}">{{ 'collections.all' | t }}</a></nav>
+        <h1 class="display-lg" data-split>{{ product.title }}</h1>
+        {%- if product.metafields.custom.tagline != blank -%}<p class="pdp__tagline serif-light">{{ product.metafields.custom.tagline }}</p>{%- endif -%}
+
+        <div class="pdp__price-row">
+          <span class="pdp__price" data-pdp-price>{{ current_variant.price | money }}</span>
+          {%- if current_variant.compare_at_price > current_variant.price -%}<s class="muted" data-pdp-compare>{{ current_variant.compare_at_price | money }}</s>{%- endif -%}
+          <span class="spot__stars">★★★★★</span>
+        </div>
+
+        {%- form 'product', product, class: 'pdp__form', data-product-form: '' -%}
+          <input type="hidden" name="id" value="{{ current_variant.id }}" data-variant-input>
+          {%- unless product.has_only_default_variant -%}
+            {%- for option in product.options_with_values -%}
+              <fieldset class="pdp__option">
+                <legend class="eyebrow">{{ option.name }}</legend>
+                <div class="chips">
+                  {%- for value in option.values -%}
+                    <label class="chip">
+                      <input type="radio" name="option-{{ option.position }}" value="{{ value | escape }}" data-option-index="{{ forloop.parentloop.index0 }}" {% if option.selected_value == value %}checked{% endif %}>
+                      <span>{{ value }}</span>
+                    </label>
+                  {%- endfor -%}
+                </div>
+              </fieldset>
+            {%- endfor -%}
+          {%- endunless -%}
+
+          <div class="pdp__buy">
+            <div class="qty qty--lg" data-qty-input>
+              <button type="button" data-step="-1" aria-label="{{ 'cart.decrease' | t }}">−</button>
+              <input type="number" name="quantity" value="1" min="1" aria-label="{{ 'cart.quantity' | t }}">
+              <button type="button" data-step="1" aria-label="{{ 'cart.increase' | t }}">+</button>
+            </div>
+            <button type="submit" class="btn btn--gold btn--grow" data-add-button data-magnetic {% unless current_variant.available %}disabled{% endunless %}>
+              <span data-add-label>{%- if current_variant.available -%}{{ 'product.add_to_cart' | t }}{%- else -%}{{ 'product.sold_out' | t }}{%- endif -%}</span>
+            </button>
+          </div>
+          {{ form | payment_button }}
+        {%- endform -%}
+
+        <div class="pdp__tabs" data-tabs>
+          <div class="spot__tablist" role="tablist">
+            <button type="button" role="tab" class="spot__tab is-active" data-tab="0" aria-selected="true"><em>01</em><span>{{ 'product.tab_description' | t }}</span></button>
+            <button type="button" role="tab" class="spot__tab" data-tab="1" aria-selected="false"><em>02</em><span>{{ 'product.tab_notes' | t }}</span></button>
+            <button type="button" role="tab" class="spot__tab" data-tab="2" aria-selected="false"><em>03</em><span>{{ 'product.tab_ritual' | t }}</span></button>
+          </div>
+          <div class="spot__panels">
+            <div class="spot__panel rte is-active" data-panel="0">{{ product.description }}</div>
+            <div class="spot__panel" data-panel="1">
+              {%- if product.metafields.custom.notes != blank -%}{{ product.metafields.custom.notes }}{%- else -%}<p>{{ section.settings.notes_fallback }}</p>{%- endif -%}
+            </div>
+            <div class="spot__panel" data-panel="2"><p>{{ section.settings.ritual }}</p></div>
+          </div>
+        </div>
+
+        <ul class="pdp__perks">
+          <li>{% render 'icon-lotus' %}<span>{{ section.settings.perk_1 }}</span></li>
+          <li>{% render 'icon-lotus' %}<span>{{ section.settings.perk_2 }}</span></li>
+          <li>{% render 'icon-lotus' %}<span>{{ section.settings.perk_3 }}</span></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <script type="application/json" data-product-json>{{ product.variants | json }}</script>
+</section>
+
+{% schema %}
+{
+  "name": "Product",
+  "settings": [
+    { "type": "textarea", "id": "notes_fallback", "label": "Notes fallback", "default": "Hand-composed in Dubai from single-origin raw materials." },
+    { "type": "textarea", "id": "ritual", "label": "Ritual text", "default": "Mist twice onto the pulse points — wrists, throat and behind the ears. Let it settle; never rub. For a deeper trail, veil the hair from a distance." },
+    { "type": "text", "id": "perk_1", "label": "Perk 1", "default": "Complimentary UAE delivery & gift wrapping" },
+    { "type": "text", "id": "perk_2", "label": "Perk 2", "default": "Two complimentary 2 mL samples with every order" },
+    { "type": "text", "id": "perk_3", "label": "Perk 3", "default": "Refillable crystal flacon" }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,184 @@
+{
+  "sections": {
+    "hero": {
+      "type": "hero-wordmark",
+      "settings": {
+        "wordmark": "MIRA",
+        "kicker": "Maison de Parfum",
+        "corner_label": "Collection N°01",
+        "text": "Rare oud, Taif rose and saffron gathered across Arabia — composed by hand in Dubai and sealed in crystal, gold and light.",
+        "cta_label": "Discover the collection",
+        "cta_link": "shopify://collections/signature-collection",
+        "foot_left": "Est. Dubai",
+        "foot_right": "Eau de Parfum"
+      }
+    },
+    "marquee": {
+      "type": "marquee",
+      "settings": {
+        "items": "Agarwood Oud, Taif Rose, Kashmiri Saffron, Golden Amber, Omani Frankincense",
+        "style": "solid",
+        "speed": 60
+      }
+    },
+    "film": {
+      "type": "scroll-film",
+      "blocks": {
+        "c1": { "type": "caption", "settings": { "eyebrow": "Chapter I", "heading": "Born of desert nights", "text": "Every flacon begins after sunset, when the air cools and the resins soften.", "align": "left", "start": 4, "end": 30 } },
+        "c2": { "type": "caption", "settings": { "eyebrow": "Chapter II", "heading": "Aged in smoke & oud", "text": "Ninety days of maceration in amber glass, turned by hand each morning.", "align": "right", "start": 36, "end": 64 } },
+        "c3": { "type": "caption", "settings": { "eyebrow": "Chapter III", "heading": "Sealed in gold", "text": "Hand-faceted crystal, crowned with a polished gold sphere.", "align": "center", "start": 70, "end": 98 } }
+      },
+      "block_order": ["c1", "c2", "c3"],
+      "settings": { "frame_count": 120, "scroll_length": 420 }
+    },
+    "story": {
+      "type": "arc-story",
+      "blocks": {
+        "s1": { "type": "stat", "settings": { "number": 90, "suffix": "", "label": "Days of maceration" } },
+        "s2": { "type": "stat", "settings": { "number": 22, "suffix": "%", "label": "Perfume concentration" } },
+        "s3": { "type": "stat", "settings": { "number": 200, "suffix": "", "label": "Flacons per batch" } }
+      },
+      "block_order": ["s1", "s2", "s3"],
+      "settings": {
+        "eyebrow": "The Maison",
+        "heading_light": "Unlock the scent of Arabia with",
+        "heading_bold": "MIRA's Botanical Blends",
+        "cta_label": "Shop now",
+        "cta_link": "shopify://collections/signature-collection"
+      }
+    },
+    "spotlight": {
+      "type": "product-spotlight",
+      "blocks": {
+        "f1": {
+          "type": "fragrance",
+          "settings": {
+            "product": "amber-nocturne",
+            "title": "The Amber Nocturne",
+            "lede": "A night-blooming amber that lingers like the last light on the dunes.",
+            "ghost": "AMBER",
+            "asset_image": "bottle-hero.webp",
+            "rating": 5,
+            "size": "100 mL · Eau de Parfum",
+            "accent": "#c58a3d",
+            "accent_2": "#1d1209",
+            "description": "<p>Glowing labdanum and golden resins warmed by Madagascan vanilla and a whisper of Cambodian oud — a skin scent for golden-hour souls.</p>",
+            "notes_top": "Bergamot, pink pepper",
+            "notes_heart": "Labdanum, Taif rose",
+            "notes_base": "Amber, vanilla, oud",
+            "flacon": "Hand-faceted crystal filled with honeyed amber, crowned with a polished gold sphere. Refillable.",
+            "composition": "Alcohol denat., parfum (fragrance), aqua, benzyl benzoate, limonene, linalool. 20% concentration."
+          }
+        },
+        "f2": {
+          "type": "fragrance",
+          "settings": {
+            "product": "oud-noir",
+            "title": "The Night Treasure",
+            "lede": "Oud Noir embodies a new facet of mystery — smoke, leather and black plum.",
+            "ghost": "NOIR",
+            "asset_image": "bottle-oud.webp",
+            "rating": 5,
+            "size": "100 mL · Extrait de Parfum",
+            "accent": "#b8374f",
+            "accent_2": "#1a070d",
+            "description": "<p>Smouldering Assam agarwood wrapped in black leather, frankincense and dark plum — an extrait that lasts from midnight until dawn.</p>",
+            "notes_top": "Black plum, cardamom",
+            "notes_heart": "Frankincense, leather",
+            "notes_base": "Assam oud, patchouli, ambergris",
+            "flacon": "Heavy black glass with a gold collar and a hand-knotted silk tassel atomiser.",
+            "composition": "Alcohol denat., parfum (fragrance), aqua, coumarin, eugenol. 25% concentration."
+          }
+        },
+        "f3": {
+          "type": "fragrance",
+          "settings": {
+            "product": "rose-de-taif",
+            "title": "The Dawn Rose",
+            "lede": "Taif roses gathered before sunrise, distilled the very same morning.",
+            "ghost": "ROSE",
+            "asset_image": "bottle-rose.webp",
+            "rating": 5,
+            "size": "100 mL · Eau de Parfum",
+            "accent": "#d9918f",
+            "accent_2": "#1c0d10",
+            "description": "<p>Dewy, velvety and quietly romantic, with lychee brightness and a soft musk trail.</p>",
+            "notes_top": "Lychee, pink pepper",
+            "notes_heart": "Taif rose, peony",
+            "notes_base": "White musk, cashmere wood",
+            "flacon": "Pebble-shaped crystal blushed with rose gold, finished with a faceted rose-gold cap.",
+            "composition": "Alcohol denat., parfum (fragrance), aqua, citronellol, geraniol. 18% concentration."
+          }
+        },
+        "f4": {
+          "type": "fragrance",
+          "settings": {
+            "product": "saffron-veil",
+            "title": "The Saffron Veil",
+            "lede": "Radiant saffron draped over sun-warmed sandalwood.",
+            "ghost": "SAFFRON",
+            "asset_image": "bottle-saffron.webp",
+            "rating": 4,
+            "size": "100 mL · Eau de Parfum",
+            "accent": "#e0782f",
+            "accent_2": "#1d0c05",
+            "description": "<p>Kashmiri saffron and orange blossom over Mysore sandalwood — a luminous veil that glows like the desert at high noon.</p>",
+            "notes_top": "Saffron, mandarin",
+            "notes_heart": "Orange blossom, jasmine sambac",
+            "notes_base": "Mysore sandalwood, amberwood",
+            "flacon": "Slim ribbed crystal column with a polished gold dome.",
+            "composition": "Alcohol denat., parfum (fragrance), aqua, limonene, linalool. 20% concentration."
+          }
+        }
+      },
+      "block_order": ["f1", "f2", "f3", "f4"],
+      "settings": { "eyebrow": "The Signature Collection" }
+    },
+    "notes": {
+      "type": "notes-horizontal",
+      "blocks": {
+        "n1": { "type": "note", "settings": { "asset_image": "note-oud.webp", "origin": "Assam · India", "title": "Agarwood Oud", "text": "Liquid gold of the East — resinous, smoky and impossibly deep. Aged for twelve years before distillation." } },
+        "n2": { "type": "note", "settings": { "asset_image": "note-saffron.webp", "origin": "Pampore · Kashmir", "title": "Saffron", "text": "Three crimson threads per flower, picked by hand at first light in late autumn." } },
+        "n3": { "type": "note", "settings": { "asset_image": "note-rose.webp", "origin": "Taif · Hejaz", "title": "Taif Rose", "text": "Thirty-petal damask roses distilled in copper the morning they are picked." } },
+        "n4": { "type": "note", "settings": { "asset_image": "note-amber.webp", "origin": "Dhofar · Oman", "title": "Golden Amber", "text": "Warm resins and labdanum melted slowly into a glowing, honeyed heart." } }
+      },
+      "block_order": ["n1", "n2", "n3", "n4"],
+      "settings": {}
+    },
+    "video": {
+      "type": "video-reveal",
+      "settings": {}
+    },
+    "finder": {
+      "type": "scent-finder",
+      "blocks": {
+        "m1": { "type": "match", "settings": { "product": "amber-nocturne", "name": "Amber Nocturne", "asset_image": "bottle-hero.webp", "moment": "dusk", "mood": "warm", "why": "Glowing amber and labdanum for golden-hour souls who love to be wrapped in warmth." } },
+        "m2": { "type": "match", "settings": { "product": "oud-noir", "name": "Oud Noir", "asset_image": "bottle-oud.webp", "moment": "midnight", "mood": "mysterious", "why": "Smoke, leather and Assam oud for those who come alive after dark." } },
+        "m3": { "type": "match", "settings": { "product": "rose-de-taif", "name": "Rose de Taif", "asset_image": "bottle-rose.webp", "moment": "dawn", "mood": "romantic", "why": "Dew-kissed Taif rose for quiet romantics and early mornings." } },
+        "m4": { "type": "match", "settings": { "product": "saffron-veil", "name": "Saffron Veil", "asset_image": "bottle-saffron.webp", "moment": "noon", "mood": "radiant", "why": "Luminous saffron and sandalwood for a radiant, sunlit presence." } }
+      },
+      "block_order": ["m1", "m2", "m3", "m4"],
+      "settings": {}
+    },
+    "quote": {
+      "type": "quote-parallax",
+      "settings": {}
+    },
+    "featured": {
+      "type": "featured-collection",
+      "settings": { "collection": "signature-collection", "limit": 4 }
+    },
+    "voices": {
+      "type": "testimonials",
+      "blocks": {
+        "t1": { "type": "voice", "settings": { "name": "Layla, 32", "meta": "Wears Amber Nocturne", "quote": "Strangers stop me to ask what I'm wearing. It lasts through an entire Dubai evening and still smells beautiful the next morning." } },
+        "t2": { "type": "voice", "settings": { "name": "Omar, 38", "meta": "Wears Oud Noir", "quote": "The most refined oud I have owned — smoky without ever being heavy. The flacon alone is a piece of art." } },
+        "t3": { "type": "voice", "settings": { "name": "Sofia, 27", "meta": "Wears Rose de Taif", "quote": "A rose that feels modern and soft. It's become my signature — I've already ordered the refill." } },
+        "t4": { "type": "voice", "settings": { "name": "Hessa, 45", "meta": "Wears Saffron Veil", "quote": "Warm, glowing and so elegant. The gift wrapping made it feel like opening jewellery." } }
+      },
+      "block_order": ["t1", "t2", "t3", "t4"],
+      "settings": { "heading": "Worn & adored" }
+    }
+  },
+  "order": ["hero", "marquee", "film", "story", "spotlight", "notes", "video", "finder", "quote", "featured", "voices"]
+}

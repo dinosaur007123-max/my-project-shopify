@@ -1,0 +1,37 @@
+{%- comment -%} Full-bleed video that expands out of an arched window as it scrolls into view. {%- endcomment -%}
+<section class="vreveal" data-vreveal>
+  <div class="vreveal__pin">
+    <div class="vreveal__frame" data-vreveal-frame>
+      <video class="vreveal__video" data-autoplay-video muted loop playsinline preload="none"
+        poster="{{ 'liquid-gold-poster.webp' | asset_url }}"
+        {%- if section.settings.video_url != blank %} data-src="{{ section.settings.video_url }}"{% else %} data-src="{{ 'liquid-gold.mp4' | asset_url }}"{% endif %}
+        aria-label="{{ section.settings.alt | escape }}"></video>
+      <div class="vreveal__shade" aria-hidden="true"></div>
+    </div>
+    <div class="vreveal__copy">
+      <p class="eyebrow" data-vreveal-fade>{{ section.settings.eyebrow }}</p>
+      <h2 class="vreveal__title" data-vreveal-title>
+        {%- assign lines = section.settings.heading | split: '|' -%}
+        {%- for line in lines -%}<span class="line"><span>{{ line | strip }}</span></span>{%- endfor -%}
+      </h2>
+      <p class="vreveal__text" data-vreveal-fade>{{ section.settings.text }}</p>
+    </div>
+    <button type="button" class="vreveal__sound" data-video-toggle aria-label="{{ 'general.pause' | t }}">
+      <span></span><span></span>
+    </button>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Video reveal",
+  "settings": [
+    { "type": "url", "id": "video_url", "label": "Video URL (optional — defaults to theme asset)" },
+    { "type": "text", "id": "alt", "label": "Accessible description", "default": "Liquid amber perfume swirling through golden light" },
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Concentrate · 22%" },
+    { "type": "text", "id": "heading", "label": "Heading (use | for line breaks)", "default": "Liquid | gold, | slowly poured" },
+    { "type": "textarea", "id": "text", "label": "Text", "default": "Our extraits are twice as concentrated as a classic eau de parfum — a single drop on the pulse lasts from dusk until dawn." }
+  ],
+  "presets": [{ "name": "Video reveal" }]
+}
+{% endschema %}

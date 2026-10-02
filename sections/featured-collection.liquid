@@ -1,0 +1,45 @@
+{%- liquid
+  assign collection = section.settings.collection
+  if collection == blank
+    assign collection = collections['all']
+  endif
+-%}
+<section class="featured container" data-featured>
+  <header class="featured__head">
+    <div>
+      <p class="eyebrow" data-reveal>{{ section.settings.eyebrow }}</p>
+      <h2 class="display-lg" data-split>{{ section.settings.heading }}</h2>
+    </div>
+    <a href="{{ collection.url | default: routes.all_products_collection_url }}" class="u-link" data-reveal>{{ 'collections.view_all' | t }} →</a>
+  </header>
+
+  <div class="product-grid">
+    {%- if collection.products.size > 0 -%}
+      {%- for product in collection.products limit: section.settings.limit -%}
+        {% render 'product-card', product: product, index: forloop.index %}
+      {%- endfor -%}
+    {%- else -%}
+      {%- assign fallbacks = 'bottle-hero.webp,bottle-oud.webp,bottle-rose.webp,bottle-saffron.webp' | split: ',' -%}
+      {%- assign names = 'Amber Nocturne,Oud Noir,Rose de Taif,Saffron Veil' | split: ',' -%}
+      {%- for f in fallbacks -%}
+        <div class="product-card" data-tilt data-reveal>
+          <div class="product-card__media"><div data-tilt-target><img src="{{ f | asset_url }}" alt="{{ names[forloop.index0] }}" loading="lazy" width="800" height="1060"></div></div>
+          <div class="product-card__info"><h3>{{ names[forloop.index0] }}</h3><span class="muted">Coming soon</span></div>
+        </div>
+      {%- endfor -%}
+    {%- endif -%}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Featured collection",
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Shop the maison" },
+    { "type": "text", "id": "heading", "label": "Heading", "default": "The Signature Wardrobe" },
+    { "type": "collection", "id": "collection", "label": "Collection" },
+    { "type": "range", "id": "limit", "label": "Products", "min": 2, "max": 12, "step": 1, "default": 4 }
+  ],
+  "presets": [{ "name": "Featured collection" }]
+}
+{% endschema %}

@@ -1,0 +1,2 @@
+{% render 'cart-items', cart: cart %}
+<template data-cart-meta data-count="{{ cart.item_count }}" data-total="{{ cart.total_price | money | escape }}"></template>

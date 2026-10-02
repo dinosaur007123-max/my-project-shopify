@@ -1,0 +1,25 @@
+<section class="marquee{% if section.settings.style == 'outline' %} marquee--outline{% endif %}" data-marquee data-speed="{{ section.settings.speed }}" aria-label="{{ section.settings.items | escape }}">
+  {%- assign items = section.settings.items | split: ',' -%}
+  <div class="marquee__track" data-marquee-track>
+    {%- for n in (1..2) -%}
+      <div class="marquee__group" {% if n == 2 %}aria-hidden="true"{% endif %}>
+        {%- for item in items -%}
+          <span class="marquee__item">{{ item | strip }}</span>
+          <span class="marquee__star" aria-hidden="true">{% render 'icon-lotus' %}</span>
+        {%- endfor -%}
+      </div>
+    {%- endfor -%}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Marquee",
+  "settings": [
+    { "type": "text", "id": "items", "label": "Items (comma separated)", "default": "Agarwood Oud, Taif Rose, Kashmiri Saffron, Golden Amber, Omani Frankincense" },
+    { "type": "select", "id": "style", "label": "Style", "default": "solid", "options": [ { "value": "solid", "label": "Solid" }, { "value": "outline", "label": "Outline" } ] },
+    { "type": "range", "id": "speed", "label": "Speed", "min": 20, "max": 120, "step": 5, "default": 60 }
+  ],
+  "presets": [{ "name": "Marquee" }]
+}
+{% endschema %}

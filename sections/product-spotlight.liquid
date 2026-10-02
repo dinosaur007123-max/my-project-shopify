@@ -1,0 +1,137 @@
+{%- comment -%}
+  Product spotlight carousel: big uppercase title, flacon in the centre with a
+  ghost word behind it, a details rail on the right and four numbered tabs.
+  Each block is one fragrance; picking a product wires price + add-to-cart.
+{%- endcomment -%}
+<section class="spotlight" data-spotlight id="spotlight-{{ section.id }}">
+  <div class="spotlight__bg" aria-hidden="true" data-spotlight-bg></div>
+  <div class="spotlight__inner container">
+    <header class="spotlight__head">
+      <p class="eyebrow" data-reveal>{{ section.settings.eyebrow }}</p>
+      <p class="spotlight__index eyebrow" aria-live="polite"><span data-spot-current>01</span> — {{ section.blocks.size | prepend: '0' | slice: -2, 2 }}</p>
+    </header>
+
+    <div class="spotlight__slides">
+      {%- for block in section.blocks -%}
+        {%- liquid
+          assign p = block.settings.product
+          assign title = block.settings.title
+          if title == blank and p != blank
+            assign title = p.title
+          endif
+          assign variant = p.selected_or_first_available_variant
+        -%}
+        <article class="spot{% if forloop.first %} is-active{% endif %}" data-spot data-accent="{{ block.settings.accent }}" data-accent-2="{{ block.settings.accent_2 }}" data-variant-id="{{ variant.id }}" data-url="{{ p.url | default: routes.all_products_collection_url }}" {{ block.shopify_attributes }} aria-hidden="{% unless forloop.first %}true{% else %}false{% endunless %}">
+          <div class="spot__title">
+            <h2 class="display-xl">
+              {%- assign words = title | upcase | split: ' ' -%}
+              {%- for w in words -%}<span class="line"><span>{{ w }}</span></span>{%- endfor -%}
+            </h2>
+            <div class="spot__lede">
+              <i class="spot__rule"></i>
+              <p>{{ block.settings.lede }}</p>
+            </div>
+          </div>
+
+          <div class="spot__visual">
+            <span class="spot__ghost" aria-hidden="true">{{ block.settings.ghost | upcase }}</span>
+            <div class="spot__bottle" data-tilt>
+              <div data-tilt-target>
+                {%- if block.settings.image != blank -%}
+                  {{ block.settings.image | image_url: width: 1000 | image_tag: loading: 'lazy', alt: title }}
+                {%- elsif p.featured_image -%}
+                  {{ p.featured_image | image_url: width: 1000 | image_tag: loading: 'lazy', alt: title }}
+                {%- else -%}
+                  <img src="{{ block.settings.asset_image | asset_url }}" alt="{{ title }}" loading="lazy" width="800" height="1060">
+                {%- endif -%}
+              </div>
+            </div>
+          </div>
+
+          <aside class="spot__details">
+            <p class="spot__label">{{ 'product.details' | t }}</p>
+            <p class="spot__price">
+              {%- if variant -%}{{ variant.price | money }}{%- else -%}{{ block.settings.price_text }}{%- endif -%}
+            </p>
+            <p class="spot__stars" aria-label="{{ block.settings.rating }} / 5">
+              {%- for i in (1..5) -%}<span{% if i > block.settings.rating %} class="is-off"{% endif %}>★</span>{%- endfor -%}
+            </p>
+            <p class="spot__size">{{ block.settings.size }}</p>
+          </aside>
+
+          <div class="spot__tabs" data-tabs>
+            <div class="spot__tablist" role="tablist">
+              {%- assign tab_titles = 'product.tab_description,product.tab_notes,product.tab_flacon,product.tab_composition' | split: ',' -%}
+              {%- for t in tab_titles -%}
+                <button type="button" role="tab" class="spot__tab{% if forloop.first %} is-active{% endif %}" aria-selected="{% if forloop.first %}true{% else %}false{% endif %}" data-tab="{{ forloop.index0 }}">
+                  <em>0{{ forloop.index }}</em><span>{{ t | t }}</span>
+                </button>
+              {%- endfor -%}
+            </div>
+            <div class="spot__panels">
+              <div class="spot__panel is-active" role="tabpanel" data-panel="0">{{ block.settings.description | default: p.description }}</div>
+              <div class="spot__panel" role="tabpanel" data-panel="1">
+                <ul class="notes-pyramid">
+                  <li><em>{{ 'product.top' | t }}</em>{{ block.settings.notes_top }}</li>
+                  <li><em>{{ 'product.heart' | t }}</em>{{ block.settings.notes_heart }}</li>
+                  <li><em>{{ 'product.base' | t }}</em>{{ block.settings.notes_base }}</li>
+                </ul>
+              </div>
+              <div class="spot__panel" role="tabpanel" data-panel="2"><p>{{ block.settings.flacon }}</p></div>
+              <div class="spot__panel" role="tabpanel" data-panel="3"><p>{{ block.settings.composition }}</p></div>
+            </div>
+          </div>
+        </article>
+      {%- endfor -%}
+    </div>
+
+    <div class="spotlight__controls">
+      <button type="button" class="btn btn--accent" data-spot-add data-magnetic data-cursor-text="Add">
+        <span>{{ 'product.add_to_cart' | t }}</span><b aria-hidden="true">+</b>
+      </button>
+      <a href="#" class="spin-link" data-spot-link data-magnetic aria-label="{{ 'product.view' | t }}">
+        <svg viewBox="0 0 100 100" aria-hidden="true"><defs><path id="spin-{{ section.id }}" d="M50 50m-38 0a38 38 0 1 1 76 0a38 38 0 1 1-76 0"/></defs><text><textPath href="#spin-{{ section.id }}">VIEW · FRAGRANCE · VIEW · FRAGRANCE ·</textPath></text></svg>
+        <span>▸</span>
+      </a>
+      <div class="spotlight__arrows">
+        <button type="button" class="arrow-btn" data-spot-prev aria-label="{{ 'general.previous' | t }}">‹</button>
+        <button type="button" class="arrow-btn" data-spot-next aria-label="{{ 'general.next' | t }}">›</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Product spotlight",
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "The Signature Collection" }
+  ],
+  "blocks": [
+    {
+      "type": "fragrance",
+      "name": "Fragrance",
+      "settings": [
+        { "type": "product", "id": "product", "label": "Product" },
+        { "type": "text", "id": "title", "label": "Display title (defaults to product)" },
+        { "type": "text", "id": "lede", "label": "Short line", "default": "A night-blooming amber that lingers like the last light on the dunes." },
+        { "type": "text", "id": "ghost", "label": "Ghost word behind bottle", "default": "AMBER" },
+        { "type": "image_picker", "id": "image", "label": "Bottle cut-out" },
+        { "type": "text", "id": "asset_image", "label": "Fallback theme asset", "default": "bottle-hero.webp" },
+        { "type": "text", "id": "price_text", "label": "Price text (no product)", "default": "AED 650" },
+        { "type": "range", "id": "rating", "label": "Rating", "min": 1, "max": 5, "step": 1, "default": 5 },
+        { "type": "text", "id": "size", "label": "Size", "default": "100 mL · Eau de Parfum" },
+        { "type": "color", "id": "accent", "label": "Accent", "default": "#c58a3d" },
+        { "type": "color", "id": "accent_2", "label": "Background tint", "default": "#1b120a" },
+        { "type": "richtext", "id": "description", "label": "Description" },
+        { "type": "text", "id": "notes_top", "label": "Top notes", "default": "Bergamot, pink pepper" },
+        { "type": "text", "id": "notes_heart", "label": "Heart notes", "default": "Labdanum, Taif rose" },
+        { "type": "text", "id": "notes_base", "label": "Base notes", "default": "Amber, vanilla, oud" },
+        { "type": "textarea", "id": "flacon", "label": "Flacon", "default": "Hand-faceted crystal, crowned with a polished gold sphere." },
+        { "type": "textarea", "id": "composition", "label": "Composition", "default": "Alcohol denat., parfum (fragrance), aqua. 22% concentration." }
+      ]
+    }
+  ],
+  "presets": [{ "name": "Product spotlight", "blocks": [ { "type": "fragrance" } ] }]
+}
+{% endschema %}

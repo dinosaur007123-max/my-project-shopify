@@ -1,0 +1,24 @@
+<section class="cart-page container">
+  <header class="page-hero">
+    <p class="eyebrow">{{ shop.name }}</p>
+    <h1 class="display-xl" data-split>{{ 'cart.title' | t }}</h1>
+  </header>
+  <div class="cart-page__grid">
+    <div class="cart-page__items" data-cart-items>{% render 'cart-items', cart: cart %}</div>
+    {%- if cart.item_count > 0 -%}
+      <aside class="cart-page__summary">
+        <div class="cart-drawer__total"><span>{{ 'cart.subtotal' | t }}</span><strong data-cart-total>{{ cart.total_price | money }}</strong></div>
+        <p class="muted small">{{ 'cart.taxes' | t }}</p>
+        <form action="{{ routes.cart_url }}" method="post">
+          <label class="eyebrow" for="CartNote">{{ 'cart.note' | t }}</label>
+          <textarea id="CartNote" name="note" rows="3" class="field">{{ cart.note }}</textarea>
+          <button type="submit" name="checkout" class="btn btn--gold btn--block"><span>{{ 'cart.checkout' | t }}</span></button>
+        </form>
+      </aside>
+    {%- endif -%}
+  </div>
+</section>
+
+{% schema %}
+{ "name": "Cart", "settings": [] }
+{% endschema %}

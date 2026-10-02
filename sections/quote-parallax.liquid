@@ -1,0 +1,26 @@
+<section class="quote" data-quote>
+  <div class="quote__media" data-parallax="18">
+    {%- if section.settings.image != blank -%}
+      {{ section.settings.image | image_url: width: 2400 | image_tag: loading: 'lazy', alt: section.settings.image.alt }}
+    {%- else -%}
+      <img src="{{ 'desert.webp' | asset_url }}" alt="A MIRA flacon on a dune crest at blue hour" loading="lazy" width="2400" height="1350">
+    {%- endif -%}
+  </div>
+  <div class="quote__shade" aria-hidden="true"></div>
+  <blockquote class="quote__text container">
+    <p class="display-lg" data-words>{{ section.settings.quote }}</p>
+    <footer class="eyebrow">{{ section.settings.author }}</footer>
+  </blockquote>
+</section>
+
+{% schema %}
+{
+  "name": "Quote · Parallax",
+  "settings": [
+    { "type": "image_picker", "id": "image", "label": "Image" },
+    { "type": "textarea", "id": "quote", "label": "Quote", "default": "“A perfume should feel like the desert at dusk — vast, warm and quietly unforgettable.”" },
+    { "type": "text", "id": "author", "label": "Author", "default": "Nour Al-Mansoori — Founding Perfumer" }
+  ],
+  "presets": [{ "name": "Quote · Parallax" }]
+}
+{% endschema %}

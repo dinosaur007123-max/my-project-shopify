@@ -1,0 +1,18 @@
+{%- if section.settings.text != blank -%}
+  <div class="announcement" role="region" aria-label="{{ 'general.announcement' | t }}">
+    <div class="announcement__track">
+      {%- for i in (1..6) -%}
+        <span>{{ section.settings.text }}</span><span class="announcement__sep">✦</span>
+      {%- endfor -%}
+    </div>
+  </div>
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "Announcement bar",
+  "settings": [
+    { "type": "text", "id": "text", "label": "Text", "default": "Complimentary delivery across the UAE" }
+  ]
+}
+{% endschema %}

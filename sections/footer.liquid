@@ -1,0 +1,79 @@
+<footer class="site-footer" data-footer>
+  <div class="site-footer__lotus" aria-hidden="true">
+    <img src="{{ 'lotus.webp' | asset_url }}" alt="" loading="lazy" width="1200" height="1200">
+  </div>
+
+  <div class="site-footer__top container">
+    <div class="site-footer__newsletter">
+      <p class="eyebrow">{{ section.settings.newsletter_eyebrow }}</p>
+      <h2 class="display-md" data-split>{{ section.settings.newsletter_heading }}</h2>
+      {%- form 'customer', class: 'newsletter-form', id: 'FooterNewsletter' -%}
+        <input type="hidden" name="contact[tags]" value="newsletter">
+        {%- if form.posted_successfully? -%}
+          <p class="newsletter-form__success">{{ 'newsletter.success' | t }}</p>
+        {%- else -%}
+          <label class="visually-hidden" for="FooterEmail">{{ 'newsletter.label' | t }}</label>
+          <input id="FooterEmail" type="email" name="contact[email]" placeholder="{{ 'newsletter.label' | t }}" autocomplete="email" required>
+          <button type="submit" class="btn btn--gold" data-magnetic><span>{{ 'newsletter.button' | t }}</span></button>
+          {%- if form.errors -%}<p class="newsletter-form__error">{{ form.errors.translated_fields.email | capitalize }} {{ form.errors.messages.email }}</p>{%- endif -%}
+        {%- endif -%}
+      {%- endform -%}
+    </div>
+
+    <div class="site-footer__cols">
+      {%- for block in section.blocks -%}
+        {%- assign fmenu = linklists[block.settings.menu] -%}
+        <div class="site-footer__col" {{ block.shopify_attributes }}>
+          <p class="eyebrow">{{ block.settings.title }}</p>
+          <ul>
+            {%- if fmenu.links.size > 0 -%}
+              {%- for link in fmenu.links -%}<li><a href="{{ link.url }}" class="u-link">{{ link.title }}</a></li>{%- endfor -%}
+            {%- else -%}
+              <li><a href="{{ routes.all_products_collection_url }}" class="u-link">All fragrances</a></li>
+              <li><a href="{{ routes.search_url }}" class="u-link">Search</a></li>
+              <li><a href="{{ routes.cart_url }}" class="u-link">Your bag</a></li>
+            {%- endif -%}
+          </ul>
+        </div>
+      {%- endfor -%}
+      <div class="site-footer__col">
+        <p class="eyebrow">{{ 'footer.visit' | t }}</p>
+        <p class="muted">{{ section.settings.address | newline_to_br }}</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="site-footer__mark" aria-hidden="true" data-footer-mark>
+    {%- assign letters = shop.name | upcase | split: '' -%}
+    {%- for l in letters -%}<span>{{ l }}</span>{%- endfor -%}
+  </div>
+
+  <div class="site-footer__bottom container">
+    <span>&copy; {{ 'now' | date: '%Y' }} {{ shop.name }}. {{ 'footer.rights' | t }}</span>
+    <span>{{ section.settings.tagline }}</span>
+    <button type="button" class="u-link" data-scroll-top>{{ 'footer.back_to_top' | t }} ↑</button>
+  </div>
+</footer>
+
+{% schema %}
+{
+  "name": "Footer",
+  "settings": [
+    { "type": "text", "id": "newsletter_eyebrow", "label": "Newsletter eyebrow", "default": "The Inner Circle" },
+    { "type": "text", "id": "newsletter_heading", "label": "Newsletter heading", "default": "Letters scented with oud & amber" },
+    { "type": "textarea", "id": "address", "label": "Address", "default": "Atelier MIRA\nAlserkal Avenue, Al Quoz\nDubai, United Arab Emirates" },
+    { "type": "text", "id": "tagline", "label": "Tagline", "default": "Composed in Dubai · Worn everywhere" }
+  ],
+  "blocks": [
+    {
+      "type": "menu",
+      "name": "Menu column",
+      "settings": [
+        { "type": "text", "id": "title", "label": "Title", "default": "Shop" },
+        { "type": "link_list", "id": "menu", "label": "Menu", "default": "footer" }
+      ]
+    }
+  ],
+  "default": { "blocks": [ { "type": "menu" } ] }
+}
+{% endschema %}

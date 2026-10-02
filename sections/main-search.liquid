@@ -1,0 +1,27 @@
+<section class="search-page container">
+  <header class="page-hero">
+    <p class="eyebrow">{{ 'general.search' | t }}</p>
+    <h1 class="display-xl">{%- if search.performed -%}“{{ search.terms }}”{%- else -%}{{ 'search.title' | t }}{%- endif -%}</h1>
+    <form action="{{ routes.search_url }}" method="get" class="newsletter-form search-form" role="search">
+      <input type="search" name="q" value="{{ search.terms | escape }}" placeholder="{{ 'search.placeholder' | t }}" aria-label="{{ 'general.search' | t }}">
+      <input type="hidden" name="type" value="product">
+      <button type="submit" class="btn btn--gold"><span>{{ 'general.search' | t }}</span></button>
+    </form>
+  </header>
+  {%- if search.performed -%}
+    {%- paginate search.results by 12 -%}
+      <div class="product-grid">
+        {%- for item in search.results -%}
+          {%- if item.object_type == 'product' -%}{% render 'product-card', product: item, index: forloop.index %}{%- endif -%}
+        {%- else -%}
+          <p class="muted">{{ 'search.none' | t }}</p>
+        {%- endfor -%}
+      </div>
+      {%- if paginate.pages > 1 -%}{% render 'pagination', paginate: paginate %}{%- endif -%}
+    {%- endpaginate -%}
+  {%- endif -%}
+</section>
+
+{% schema %}
+{ "name": "Search", "settings": [] }
+{% endschema %}

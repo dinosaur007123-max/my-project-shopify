@@ -1,0 +1,47 @@
+<section class="voices" id="voices" data-voices>
+  <div class="container">
+    <header class="voices__head">
+      <h2 class="display-md" data-split>{{ section.settings.heading }}</h2>
+      <div class="voices__nav">
+        <button type="button" class="arrow-btn" data-voices-prev aria-label="{{ 'general.previous' | t }}">‹</button>
+        <button type="button" class="arrow-btn" data-voices-next aria-label="{{ 'general.next' | t }}">›</button>
+      </div>
+    </header>
+  </div>
+  <div class="voices__viewport" data-drag-scroll data-cursor-text="Drag">
+    <div class="voices__track">
+      {%- for block in section.blocks -%}
+        <figure class="voice" data-reveal {{ block.shopify_attributes }}>
+          <div class="voice__who">
+            <span class="voice__avatar" aria-hidden="true">{{ block.settings.name | slice: 0 }}</span>
+            <figcaption>
+              <strong>— {{ block.settings.name }}</strong>
+              <span class="muted small">{{ block.settings.meta }}</span>
+            </figcaption>
+          </div>
+          <blockquote>“{{ block.settings.quote }}”</blockquote>
+          <p class="voice__stars" aria-label="5 / 5">★★★★★</p>
+        </figure>
+      {%- endfor -%}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Testimonials",
+  "settings": [ { "type": "text", "id": "heading", "label": "Heading", "default": "Worn & adored" } ],
+  "blocks": [
+    {
+      "type": "voice",
+      "name": "Testimonial",
+      "settings": [
+        { "type": "text", "id": "name", "label": "Name", "default": "Layla, 32" },
+        { "type": "text", "id": "meta", "label": "Detail", "default": "Wears Amber Nocturne" },
+        { "type": "textarea", "id": "quote", "label": "Quote", "default": "Strangers stop me to ask what I'm wearing. It lasts through an entire Dubai evening." }
+      ]
+    }
+  ],
+  "presets": [{ "name": "Testimonials", "blocks": [ { "type": "voice" }, { "type": "voice" } ] }]
+}
+{% endschema %}

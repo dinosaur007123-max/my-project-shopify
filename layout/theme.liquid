@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="{{ request.locale.iso_code }}" class="no-js">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="theme-color" content="#0a0f0c">
+    <link rel="canonical" href="{{ canonical_url }}">
+    {%- if settings.favicon != blank -%}
+      <link rel="icon" type="image/png" href="{{ settings.favicon | image_url: width: 64, height: 64 }}">
+    {%- endif -%}
+
+    <title>
+      {{ page_title }}
+      {%- if current_tags %} &ndash; {{ 'general.tagged' | t: tags: current_tags.first }}{% endif -%}
+      {%- if current_page != 1 %} &ndash; Page {{ current_page }}{% endif -%}
+      {%- unless page_title contains shop.name %} &ndash; {{ shop.name }}{% endunless -%}
+    </title>
+    {%- if page_description -%}
+      <meta name="description" content="{{ page_description | escape }}">
+    {%- endif -%}
+
+    {% render 'meta-tags' %}
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400..700;1,6..96,400..700&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Manrope:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+    {{ 'theme.css' | asset_url | stylesheet_tag }}
+
+    <script>
+      document.documentElement.classList.replace('no-js', 'js');
+      window.MIRA = {
+        routes: {
+          cart: '{{ routes.cart_url }}',
+          cartAdd: '{{ routes.cart_add_url }}',
+          cartChange: '{{ routes.cart_change_url }}',
+          root: '{{ routes.root_url }}'
+        },
+        moneyFormat: {{ shop.money_format | json }},
+        preloader: {{ settings.show_preloader | json }},
+        cursor: {{ settings.custom_cursor | json }}
+      };
+    </script>
+    <script src="{{ 'gsap.min.js' | asset_url }}" defer></script>
+    <script src="{{ 'ScrollTrigger.min.js' | asset_url }}" defer></script>
+    <script src="{{ 'lenis.min.js' | asset_url }}" defer></script>
+    <script src="{{ 'theme.js' | asset_url }}" defer></script>
+
+    {{ content_for_header }}
+  </head>
+
+  <body class="template-{{ template.name }}">
+    <a class="skip-link" href="#MainContent">{{ 'accessibility.skip_to_content' | t }}</a>
+
+    {%- if settings.show_preloader and template.name == 'index' -%}
+      <div class="preloader" data-preloader aria-hidden="true">
+        <div class="preloader__mark">
+          {%- assign letters = shop.name | upcase | split: '' -%}
+          {%- for l in letters -%}<span>{{ l }}</span>{%- endfor -%}
+        </div>
+        <div class="preloader__meta">
+          <span>{{ settings.preloader_tagline }}</span>
+          <span class="preloader__count" data-preloader-count>000</span>
+        </div>
+        <div class="preloader__bar"><span data-preloader-bar></span></div>
+      </div>
+    {%- endif -%}
+
+    <div class="grain" aria-hidden="true"></div>
+    {%- if settings.custom_cursor -%}
+      <div class="cursor" data-cursor aria-hidden="true"><span class="cursor__label" data-cursor-label></span></div>
+      <div class="cursor-dot" data-cursor-dot aria-hidden="true"></div>
+    {%- endif -%}
+
+    {% sections 'header-group' %}
+
+    <main id="MainContent" role="main" tabindex="-1">
+      {{ content_for_layout }}
+    </main>
+
+    {% sections 'footer-group' %}
+
+    {% render 'cart-drawer' %}
+  </body>
+</html>

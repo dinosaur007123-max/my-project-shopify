@@ -1,0 +1,69 @@
+{
+  "general": {
+    "tagged": "Tagged \"{{ tags }}\"",
+    "announcement": "Announcement",
+    "primary_nav": "Primary",
+    "search": "Search",
+    "account": "Account",
+    "bag": "Bag",
+    "menu": "Menu",
+    "close": "Close",
+    "scroll": "Scroll",
+    "previous": "Previous",
+    "next": "Next",
+    "pause": "Pause video",
+    "404_title": "This page has evaporated",
+    "404_text": "Like the top notes of a perfume, it is no longer here."
+  },
+  "accessibility": { "skip_to_content": "Skip to content" },
+  "newsletter": {
+    "label": "Your email address",
+    "button": "Subscribe",
+    "success": "Thank you — your first letter is on its way."
+  },
+  "footer": { "visit": "Visit the atelier", "rights": "All rights reserved.", "back_to_top": "Back to top" },
+  "cart": {
+    "title": "Your bag",
+    "subtotal": "Subtotal",
+    "taxes": "Taxes and shipping calculated at checkout.",
+    "view": "View bag",
+    "checkout": "Checkout",
+    "empty": "Your bag is empty",
+    "continue": "Explore fragrances",
+    "decrease": "Decrease quantity",
+    "increase": "Increase quantity",
+    "quantity": "Quantity",
+    "remove": "Remove",
+    "note": "Gift message",
+    "added": "Added to your bag"
+  },
+  "product": {
+    "details": "Details",
+    "add_to_cart": "Add to bag",
+    "quick_add": "Quick add",
+    "sold_out": "Sold out",
+    "sale": "Sale",
+    "view": "View fragrance",
+    "tab_description": "Description",
+    "tab_notes": "Perfumed notes",
+    "tab_flacon": "Flacon",
+    "tab_composition": "Composition",
+    "tab_ritual": "Ritual",
+    "top": "Top",
+    "heart": "Heart",
+    "base": "Base"
+  },
+  "collections": {
+    "label": "Collection",
+    "all": "Fragrances",
+    "all_collections": "Collections",
+    "view_all": "View all",
+    "fragrances": "fragrances",
+    "sort": "Sort by",
+    "empty": "No fragrances here yet."
+  },
+  "search": { "title": "Search the maison", "placeholder": "Oud, rose, amber…", "none": "Nothing found — try another note." },
+  "finder": { "your_match": "Your match" },
+  "password": { "notify": "Notify me", "enter": "Enter with password", "password": "Password" },
+  "gift_card": { "title": "Gift card", "code": "Your gift card code", "balance": "Remaining balance" }
+}

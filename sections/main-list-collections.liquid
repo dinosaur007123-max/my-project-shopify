@@ -1,0 +1,19 @@
+<section class="container">
+  <header class="page-hero">
+    <p class="eyebrow">{{ shop.name }}</p>
+    <h1 class="display-xl" data-split>{{ 'collections.all_collections' | t }}</h1>
+  </header>
+  <div class="collection-list">
+    {%- for collection in collections -%}
+      <a href="{{ collection.url }}" class="collection-tile" data-reveal data-cursor-text="Open">
+        {%- if collection.featured_image -%}{{ collection.featured_image | image_url: width: 1000 | image_tag: loading: 'lazy', alt: collection.title }}{%- endif -%}
+        <span class="display-md">{{ collection.title }}</span>
+        <em class="muted">{{ collection.products_count }} {{ 'collections.fragrances' | t }}</em>
+      </a>
+    {%- endfor -%}
+  </div>
+</section>
+
+{% schema %}
+{ "name": "Collections list", "settings": [] }
+{% endschema %}

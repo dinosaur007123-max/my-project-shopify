@@ -1,0 +1,1 @@
+{ "sections": { "main": { "type": "main-product", "settings": {} }, "related": { "type": "featured-collection", "settings": { "eyebrow": "Complete the wardrobe", "heading": "You may also adore", "collection": "signature-collection", "limit": 4 } } }, "order": ["main", "related"] }

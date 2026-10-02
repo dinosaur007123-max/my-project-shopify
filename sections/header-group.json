@@ -1,0 +1,19 @@
+{
+  "type": "header",
+  "name": "Header group",
+  "sections": {
+    "announcement": {
+      "type": "announcement-bar",
+      "settings": {
+        "text": "Complimentary delivery across the UAE · Hand-wrapped in Dubai"
+      }
+    },
+    "header": {
+      "type": "header",
+      "settings": {
+        "menu": "main-menu"
+      }
+    }
+  },
+  "order": ["announcement", "header"]
+}

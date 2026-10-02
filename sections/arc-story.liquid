@@ -1,0 +1,79 @@
+{%- comment -%}
+  Split story: light/bold headline on the left, image held inside a sweeping
+  arc on the right. The arc strokes draw themselves as the section scrolls in.
+{%- endcomment -%}
+<section class="arc-story" id="story" data-arc>
+  <div class="arc-story__grid container">
+    <div class="arc-story__copy">
+      <p class="eyebrow" data-reveal>{{ section.settings.eyebrow }}</p>
+      <h2 class="arc-story__title" data-split>
+        <span class="serif-light">{{ section.settings.heading_light }}</span>
+        <strong>{{ section.settings.heading_bold }}</strong>
+      </h2>
+      <div class="arc-story__text rte" data-reveal>{{ section.settings.text }}</div>
+      <div class="arc-story__stats" data-reveal>
+        {%- for block in section.blocks -%}
+          <div class="stat" {{ block.shopify_attributes }}>
+            <span class="stat__num" data-count-to="{{ block.settings.number }}">0</span><span class="stat__suffix">{{ block.settings.suffix }}</span>
+            <span class="stat__label">{{ block.settings.label }}</span>
+          </div>
+        {%- endfor -%}
+      </div>
+      <a href="{{ section.settings.cta_link | default: routes.all_products_collection_url }}" class="btn btn--amber" data-magnetic data-reveal><span>{{ section.settings.cta_label }}</span></a>
+    </div>
+
+    <div class="arc-story__visual" data-arc-visual>
+      <svg class="arc-story__lines" viewBox="0 0 600 720" fill="none" aria-hidden="true">
+        <path data-arc-line d="M560 20C380 120 120 260 70 520c-20 110 30 180 120 190" stroke="url(#arcGold)" stroke-width="1.2"/>
+        <path data-arc-line d="M600 140C440 200 230 330 190 560c-14 80 10 130 60 150" stroke="url(#arcGold)" stroke-width=".8" opacity=".6"/>
+        <path data-arc-line d="M40 60c160 40 380 170 470 400" stroke="url(#arcGold)" stroke-width=".6" opacity=".4"/>
+        <defs>
+          <linearGradient id="arcGold" x1="0" y1="0" x2="600" y2="720" gradientUnits="userSpaceOnUse">
+            <stop stop-color="#e9cf95"/><stop offset=".5" stop-color="#b98a45"/><stop offset="1" stop-color="#6b4a20" stop-opacity="0"/>
+          </linearGradient>
+        </defs>
+      </svg>
+      <div class="arc-story__frame" data-arc-frame>
+        <div class="arc-story__img" data-parallax="-12">
+          {%- if section.settings.image != blank -%}
+            {{ section.settings.image | image_url: width: 1400 | image_tag: loading: 'lazy', alt: section.settings.image.alt }}
+          {%- else -%}
+            <img src="{{ 'atelier.webp' | asset_url }}" alt="A perfumer adding a drop of amber essence to a crystal flacon" loading="lazy" width="1200" height="1500">
+          {%- endif -%}
+        </div>
+      </div>
+      <div class="arc-story__badge" data-rotate-on-scroll aria-hidden="true">
+        <svg viewBox="0 0 120 120"><defs><path id="badgeCircle-{{ section.id }}" d="M60 60m-46 0a46 46 0 1 1 92 0a46 46 0 1 1-92 0"/></defs><text><textPath href="#badgeCircle-{{ section.id }}">{{ section.settings.badge_text }}</textPath></text></svg>
+        {% render 'icon-lotus' %}
+      </div>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Arc story",
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "The Maison" },
+    { "type": "text", "id": "heading_light", "label": "Heading (light)", "default": "Unlock the scent of Arabia with" },
+    { "type": "text", "id": "heading_bold", "label": "Heading (bold)", "default": "MIRA's Botanical Blends" },
+    { "type": "richtext", "id": "text", "label": "Text", "default": "<p>Every MIRA fragrance begins with a single raw material, sourced at the peak of its season — Cambodian agarwood, Taif roses picked before dawn, saffron hand-harvested in Kashmir. Our perfumers macerate each concentrate for ninety days before it is sealed in crystal.</p>" },
+    { "type": "image_picker", "id": "image", "label": "Image" },
+    { "type": "text", "id": "badge_text", "label": "Rotating badge text", "default": "HANDCRAFTED IN DUBAI · SINCE 2026 · " },
+    { "type": "text", "id": "cta_label", "label": "Button label", "default": "Shop now" },
+    { "type": "url", "id": "cta_link", "label": "Button link" }
+  ],
+  "blocks": [
+    {
+      "type": "stat",
+      "name": "Stat",
+      "settings": [
+        { "type": "number", "id": "number", "label": "Number", "default": 90 },
+        { "type": "text", "id": "suffix", "label": "Suffix", "default": "" },
+        { "type": "text", "id": "label", "label": "Label", "default": "Days of maceration" }
+      ]
+    }
+  ],
+  "presets": [{ "name": "Arc story" }]
+}
+{% endschema %}

@@ -1,0 +1,11 @@
+<section class="text-page container">
+  <header class="page-hero">
+    <p class="eyebrow">{{ shop.name }}</p>
+    <h1 class="display-xl" data-split>{{ page.title }}</h1>
+  </header>
+  <div class="rte text-page__body" data-reveal>{{ page.content }}</div>
+</section>
+
+{% schema %}
+{ "name": "Page", "settings": [] }
+{% endschema %}

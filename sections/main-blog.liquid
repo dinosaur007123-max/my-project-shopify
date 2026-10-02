@@ -1,0 +1,22 @@
+<section class="container">
+  <header class="page-hero">
+    <p class="eyebrow">{{ shop.name }}</p>
+    <h1 class="display-xl" data-split>{{ blog.title }}</h1>
+  </header>
+  {%- paginate blog.articles by 9 -%}
+    <div class="collection-list">
+      {%- for article in blog.articles -%}
+        <a href="{{ article.url }}" class="collection-tile" data-reveal data-cursor-text="Read">
+          {%- if article.image -%}{{ article.image | image_url: width: 1000 | image_tag: loading: 'lazy', alt: article.title }}{%- endif -%}
+          <span class="display-sm">{{ article.title }}</span>
+          <em class="muted">{{ article.published_at | date: '%d %B %Y' }}</em>
+        </a>
+      {%- endfor -%}
+    </div>
+    {%- if paginate.pages > 1 -%}{% render 'pagination', paginate: paginate %}{%- endif -%}
+  {%- endpaginate -%}
+</section>
+
+{% schema %}
+{ "name": "Blog", "settings": [] }
+{% endschema %}

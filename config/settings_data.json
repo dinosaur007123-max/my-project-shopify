@@ -1,0 +1,16 @@
+{
+  "current": {
+    "show_preloader": true,
+    "preloader_tagline": "Maison de Parfum — Dubai",
+    "custom_cursor": true,
+    "smooth_scroll": true
+  },
+  "presets": {
+    "Default": {
+      "show_preloader": true,
+      "preloader_tagline": "Maison de Parfum — Dubai",
+      "custom_cursor": true,
+      "smooth_scroll": true
+    }
+  }
+}

@@ -1,0 +1,37 @@
+<section class="collection-page container">
+  <header class="page-hero">
+    <p class="eyebrow" data-reveal>{{ 'collections.label' | t }}</p>
+    <h1 class="display-xl" data-split>{{ collection.title }}</h1>
+    {%- if collection.description != blank -%}<div class="page-hero__text rte" data-reveal>{{ collection.description }}</div>{%- endif -%}
+  </header>
+
+  {%- paginate collection.products by section.settings.per_page -%}
+    <div class="collection-toolbar" data-reveal>
+      <span class="muted">{{ collection.products_count }} {{ 'collections.fragrances' | t }}</span>
+      <label class="sort">
+        <span class="visually-hidden">{{ 'collections.sort' | t }}</span>
+        {%- assign sort_by = collection.sort_by | default: collection.default_sort_by -%}
+        <select data-sort>
+          {%- for option in collection.sort_options -%}
+            <option value="{{ option.value }}" {% if option.value == sort_by %}selected{% endif %}>{{ option.name }}</option>
+          {%- endfor -%}
+        </select>
+      </label>
+    </div>
+    <div class="product-grid">
+      {%- for product in collection.products -%}
+        {% render 'product-card', product: product, index: forloop.index %}
+      {%- else -%}
+        <p class="muted">{{ 'collections.empty' | t }}</p>
+      {%- endfor -%}
+    </div>
+    {%- if paginate.pages > 1 -%}{% render 'pagination', paginate: paginate %}{%- endif -%}
+  {%- endpaginate -%}
+</section>
+
+{% schema %}
+{
+  "name": "Collection",
+  "settings": [ { "type": "range", "id": "per_page", "label": "Products per page", "min": 4, "max": 48, "step": 4, "default": 12 } ]
+}
+{% endschema %}

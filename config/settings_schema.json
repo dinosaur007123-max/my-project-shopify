@@ -1,0 +1,25 @@
+[
+  {
+    "name": "theme_info",
+    "theme_name": "MIRA Maison",
+    "theme_version": "1.0.0",
+    "theme_author": "MIRA",
+    "theme_documentation_url": "https://github.com/dinosaur007123-max/my-project-shopify",
+    "theme_support_url": "https://github.com/dinosaur007123-max/my-project-shopify"
+  },
+  {
+    "name": "Experience",
+    "settings": [
+      { "type": "checkbox", "id": "show_preloader", "label": "Show preloader on the home page", "default": true },
+      { "type": "text", "id": "preloader_tagline", "label": "Preloader tagline", "default": "Maison de Parfum — Dubai" },
+      { "type": "checkbox", "id": "custom_cursor", "label": "Custom cursor (desktop)", "default": true },
+      { "type": "checkbox", "id": "smooth_scroll", "label": "Smooth scrolling", "default": true }
+    ]
+  },
+  {
+    "name": "Brand",
+    "settings": [
+      { "type": "image_picker", "id": "favicon", "label": "Favicon" }
+    ]
+  }
+]

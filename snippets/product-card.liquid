@@ -1,0 +1,26 @@
+{%- assign variant = product.selected_or_first_available_variant -%}
+<article class="product-card" data-tilt data-reveal style="--d: {{ index | default: 1 | times: 0.08 }}s">
+  <a href="{{ product.url }}" class="product-card__media" data-cursor-text="View">
+    <div data-tilt-target>
+      {%- if product.featured_image -%}
+        {{ product.featured_image | image_url: width: 900 | image_tag: loading: 'lazy', sizes: '(min-width: 990px) 25vw, 50vw', alt: product.featured_image.alt | default: product.title }}
+      {%- endif -%}
+      {%- if product.images.size > 1 -%}
+        {{ product.images[1] | image_url: width: 900 | image_tag: loading: 'lazy', class: 'product-card__alt', alt: '' }}
+      {%- endif -%}
+    </div>
+    {%- if product.compare_at_price > product.price -%}<span class="product-card__badge">{{ 'product.sale' | t }}</span>{%- endif -%}
+  </a>
+  <div class="product-card__info">
+    <div>
+      <h3><a href="{{ product.url }}">{{ product.title }}</a></h3>
+      {%- if product.metafields.custom.tagline != blank -%}<p class="muted small">{{ product.metafields.custom.tagline }}</p>{%- else -%}<p class="muted small">{{ product.type }}</p>{%- endif -%}
+    </div>
+    <span class="product-card__price">{{ product.price | money }}</span>
+  </div>
+  {%- if variant.available -%}
+    <button type="button" class="product-card__add" data-quick-add="{{ variant.id }}" aria-label="{{ 'product.add_to_cart' | t }}: {{ product.title }}">
+      <span>{{ 'product.quick_add' | t }}</span><b>+</b>
+    </button>
+  {%- endif -%}
+</article>

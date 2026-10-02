@@ -1,0 +1,52 @@
+{%- comment -%}
+  Scroll-scrubbed film: the Higgsfield orbit video is pre-split into a numbered
+  WebP sequence (film-001.webp …) and painted onto a canvas as the section is
+  scrolled. Captions are blocks that fade in over their own progress window.
+{%- endcomment -%}
+<section class="film" data-film
+  data-frames="{{ section.settings.frame_count }}"
+  data-first="{{ 'film-001.webp' | asset_url }}"
+  style="--film-height: {{ section.settings.scroll_length }}vh;">
+  <div class="film__sticky">
+    <canvas class="film__canvas" data-film-canvas aria-hidden="true"></canvas>
+    <img class="film__poster" src="{{ 'film-001.webp' | asset_url }}" alt="{{ section.settings.alt | escape }}" loading="lazy" width="1600" height="900" data-film-poster>
+    <div class="film__vignette" aria-hidden="true"></div>
+
+    <div class="film__progress" aria-hidden="true"><span data-film-bar></span></div>
+    <p class="film__counter eyebrow" aria-hidden="true"><span data-film-count>01</span> / {{ section.blocks.size | prepend: '0' | slice: -2, 2 }}</p>
+
+    {%- for block in section.blocks -%}
+      <div class="film__caption film__caption--{{ block.settings.align }}" data-film-caption data-start="{{ block.settings.start }}" data-end="{{ block.settings.end }}" {{ block.shopify_attributes }}>
+        <p class="eyebrow">{{ block.settings.eyebrow }}</p>
+        <h2 class="display-lg">{{ block.settings.heading }}</h2>
+        {%- if block.settings.text != blank -%}<p class="film__text">{{ block.settings.text }}</p>{%- endif -%}
+      </div>
+    {%- endfor -%}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Scroll film",
+  "settings": [
+    { "type": "range", "id": "frame_count", "label": "Frames in sequence", "min": 10, "max": 200, "step": 1, "default": 120 },
+    { "type": "range", "id": "scroll_length", "label": "Scroll length (vh)", "min": 200, "max": 600, "step": 20, "default": 400 },
+    { "type": "text", "id": "alt", "label": "Accessible description", "default": "The MIRA amber flacon turning slowly in smoke and golden light" }
+  ],
+  "blocks": [
+    {
+      "type": "caption",
+      "name": "Caption",
+      "settings": [
+        { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Chapter I" },
+        { "type": "text", "id": "heading", "label": "Heading", "default": "Born of desert nights" },
+        { "type": "textarea", "id": "text", "label": "Text" },
+        { "type": "select", "id": "align", "label": "Position", "default": "left", "options": [ { "value": "left", "label": "Left" }, { "value": "right", "label": "Right" }, { "value": "center", "label": "Center" } ] },
+        { "type": "range", "id": "start", "label": "Appears at (%)", "min": 0, "max": 100, "step": 1, "default": 5 },
+        { "type": "range", "id": "end", "label": "Disappears at (%)", "min": 0, "max": 100, "step": 1, "default": 30 }
+      ]
+    }
+  ],
+  "presets": [{ "name": "Scroll film" }]
+}
+{% endschema %}
