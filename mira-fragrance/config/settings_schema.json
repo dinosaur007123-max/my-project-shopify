@@ -1,0 +1,53 @@
+[
+  {
+    "name": "theme_info",
+    "theme_name": "Mira Fragrance",
+    "theme_version": "1.0.0",
+    "theme_author": "Mira Fragrance",
+    "theme_documentation_url": "https://help.shopify.com/",
+    "theme_support_url": "https://help.shopify.com/"
+  },
+  {
+    "name": "Typography",
+    "settings": [
+      { "type": "font_picker", "id": "heading_font", "label": "Heading font", "default": "playfair_display_n4" },
+      { "type": "font_picker", "id": "body_font", "label": "Body font", "default": "assistant_n4" }
+    ]
+  },
+  {
+    "name": "WhatsApp",
+    "settings": [
+      {
+        "type": "text",
+        "id": "whatsapp_number",
+        "label": "WhatsApp number",
+        "info": "International format, digits only, no + or spaces. Leave empty to hide the button.",
+        "default": "971525949733"
+      },
+      {
+        "type": "text",
+        "id": "whatsapp_message",
+        "label": "Pre-filled message",
+        "default": "Hi Mira Fragrance, I have a question."
+      }
+    ]
+  },
+  {
+    "name": "Social",
+    "settings": [
+      { "type": "url", "id": "instagram_url", "label": "Instagram" },
+      { "type": "url", "id": "tiktok_url", "label": "TikTok" }
+    ]
+  },
+  {
+    "name": "Product page",
+    "settings": [
+      {
+        "type": "text",
+        "id": "product_note",
+        "label": "Note shown under Add to cart",
+        "default": "Tester perfume, supplied in its original box. Cash on delivery."
+      }
+    ]
+  }
+]

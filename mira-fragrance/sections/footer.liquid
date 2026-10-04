@@ -1,0 +1,38 @@
+<footer class="site-footer">
+  <div class="container site-footer__inner">
+    <div class="site-footer__brand">
+      <a class="logo" href="{{ routes.root_url }}">{% render 'logo' %}</a>
+      {%- if section.settings.tagline != blank -%}<p>{{ section.settings.tagline }}</p>{%- endif -%}
+      <p class="site-footer__social">
+        {%- if settings.instagram_url != blank -%}<a href="{{ settings.instagram_url }}" target="_blank" rel="noopener">Instagram</a>{%- endif -%}
+        {%- if settings.tiktok_url != blank -%}<a href="{{ settings.tiktok_url }}" target="_blank" rel="noopener">TikTok</a>{%- endif -%}
+      </p>
+    </div>
+
+    <nav class="site-footer__links" aria-label="Footer">
+      {%- assign menu = section.settings.menu -%}
+      {%- if menu != blank and menu.links.size > 0 -%}
+        {%- for link in menu.links -%}<a href="{{ link.url }}">{{ link.title }}</a>{%- endfor -%}
+      {%- else -%}
+        <a href="/pages/about">About</a>
+        <a href="/pages/contact">Contact</a>
+        <a href="/pages/shipping-and-returns">Shipping &amp; Returns</a>
+        <a href="/pages/terms">Terms</a>
+        <a href="/pages/privacy">Privacy</a>
+      {%- endif -%}
+    </nav>
+  </div>
+  <div class="container site-footer__bottom">
+    <p>&copy; {{ 'now' | date: '%Y' }} {{ shop.name }}. Prices in {{ cart.currency.iso_code }}. Cash on delivery.</p>
+  </div>
+</footer>
+
+{% schema %}
+{
+  "name": "Footer",
+  "settings": [
+    { "type": "text", "id": "tagline", "label": "Tagline", "default": "Tester perfumes, delivered in the UAE." },
+    { "type": "link_list", "id": "menu", "label": "Menu", "default": "footer" }
+  ]
+}
+{% endschema %}

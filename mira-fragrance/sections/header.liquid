@@ -1,0 +1,44 @@
+<header class="site-header">
+  <div class="container site-header__inner">
+    <button class="icon-btn menu-toggle" type="button" aria-expanded="false" aria-controls="site-nav" data-menu-toggle aria-label="Open menu">
+      <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" aria-hidden="true"><path d="M4 8h16M4 16h16"/></svg>
+    </button>
+
+    <a class="logo" href="{{ routes.root_url }}" aria-label="{{ shop.name }}">
+      {%- if section.settings.logo != blank -%}
+        {{ section.settings.logo | image_url: width: 600 | image_tag: widths: '200, 300, 400, 600', sizes: '200px', loading: 'eager', alt: shop.name, style: 'max-width: ' | append: section.settings.logo_width | append: 'px; height: auto;' }}
+      {%- else -%}
+        {% render 'logo' %}
+      {%- endif -%}
+    </a>
+
+    <nav id="site-nav" class="site-nav" aria-label="Main" data-nav>
+      {%- assign menu = section.settings.menu -%}
+      {%- if menu != blank and menu.links.size > 0 -%}
+        {%- for link in menu.links -%}
+          <a href="{{ link.url }}"{% if link.active %} aria-current="page"{% endif %}>{{ link.title }}</a>
+        {%- endfor -%}
+      {%- else -%}
+        <a href="{{ routes.all_products_collection_url }}">Shop</a>
+        <a href="/pages/about">About</a>
+        <a href="/pages/contact">Contact</a>
+      {%- endif -%}
+    </nav>
+
+    <a class="icon-btn cart-link" href="{{ routes.cart_url }}" aria-label="Cart, {{ cart.item_count }} items">
+      <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round" aria-hidden="true"><path d="M5 8h14l-1 12H6L5 8Z"/><path d="M9 8V6a3 3 0 0 1 6 0v2"/></svg>
+      <span class="cart-count"{% if cart.item_count == 0 %} hidden{% endif %}>{{ cart.item_count }}</span>
+    </a>
+  </div>
+</header>
+
+{% schema %}
+{
+  "name": "Header",
+  "settings": [
+    { "type": "image_picker", "id": "logo", "label": "Logo image", "info": "Optional. Leave empty to use the text wordmark." },
+    { "type": "range", "id": "logo_width", "label": "Logo width", "min": 100, "max": 300, "step": 10, "unit": "px", "default": 180 },
+    { "type": "link_list", "id": "menu", "label": "Menu", "default": "main-menu" }
+  ]
+}
+{% endschema %}

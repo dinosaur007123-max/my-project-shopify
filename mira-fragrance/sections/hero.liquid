@@ -1,0 +1,43 @@
+<section class="hero">
+  <div class="hero__media" data-parallax-wrap>
+    {%- if section.settings.image != blank -%}
+      {{ section.settings.image | image_url: width: 2400 | image_tag:
+        widths: '750, 1100, 1500, 1800, 2400',
+        sizes: '100vw',
+        loading: 'eager',
+        fetchpriority: 'high',
+        alt: section.settings.image_alt,
+        class: 'hero__img',
+        data-parallax: '' }}
+    {%- else -%}
+      <div class="hero__placeholder"></div>
+    {%- endif -%}
+  </div>
+
+  <div class="container hero__inner">
+    <div class="hero__copy reveal">
+      {%- if section.settings.eyebrow != blank -%}<p class="eyebrow">{{ section.settings.eyebrow }}</p>{%- endif -%}
+      <h1>{{ section.settings.heading }}</h1>
+      {%- if section.settings.subheading != blank -%}<p class="hero__sub">{{ section.settings.subheading }}</p>{%- endif -%}
+      {%- if section.settings.button_label != blank -%}
+        <a class="btn" href="{{ section.settings.button_link | default: '#perfumes' }}">{{ section.settings.button_label }}</a>
+      {%- endif -%}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Hero",
+  "settings": [
+    { "type": "image_picker", "id": "image", "label": "Hero image", "info": "Wide 16:9 image. Keep the left third calm for the text." },
+    { "type": "text", "id": "image_alt", "label": "Image description", "default": "Three tester perfume bottles on a white surface" },
+    { "type": "text", "id": "eyebrow", "label": "Small line above heading", "default": "Mira Fragrance" },
+    { "type": "text", "id": "heading", "label": "Heading", "default": "Tester perfumes, made easy." },
+    { "type": "text", "id": "subheading", "label": "Subheading", "default": "Designer fragrances in tester editions. Cash on delivery in the UAE." },
+    { "type": "text", "id": "button_label", "label": "Button label", "default": "Shop perfumes" },
+    { "type": "text", "id": "button_link", "label": "Button link", "info": "Use #perfumes to scroll to the collection below, or a URL like /collections/perfumes.", "default": "#perfumes" }
+  ],
+  "presets": [{ "name": "Hero" }]
+}
+{% endschema %}

@@ -1,0 +1,39 @@
+{%- liquid
+  assign coll = section.settings.collection
+  if coll == blank
+    assign coll = collections['perfumes']
+  endif
+  if coll == blank
+    assign coll = collections.all
+  endif
+-%}
+<section class="section" id="perfumes">
+  <div class="container">
+    <div class="section__head reveal">
+      <h2>{{ section.settings.heading }}</h2>
+      {%- if coll.url != blank -%}<a class="link-arrow" href="{{ coll.url }}">View all</a>{%- endif -%}
+    </div>
+
+    {%- if coll.products.size > 0 -%}
+      <div class="grid">
+        {%- for product in coll.products limit: section.settings.products_to_show -%}
+          {% render 'product-card', product: product, index: forloop.index0 %}
+        {%- endfor -%}
+      </div>
+    {%- else -%}
+      <p class="empty reveal">New perfumes are coming soon.</p>
+    {%- endif -%}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Featured collection",
+  "settings": [
+    { "type": "text", "id": "heading", "label": "Heading", "default": "Perfumes" },
+    { "type": "collection", "id": "collection", "label": "Collection", "info": "Leave empty to use the collection with the handle “perfumes”." },
+    { "type": "range", "id": "products_to_show", "label": "Products to show", "min": 4, "max": 24, "step": 4, "default": 8 }
+  ],
+  "presets": [{ "name": "Featured collection" }]
+}
+{% endschema %}

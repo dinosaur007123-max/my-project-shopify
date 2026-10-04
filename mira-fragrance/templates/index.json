@@ -1,0 +1,7 @@
+{
+  "sections": {
+    "hero": { "type": "hero", "settings": {} },
+    "featured": { "type": "featured-collection", "settings": { "heading": "Perfumes", "collection": "perfumes", "products_to_show": 8 } }
+  },
+  "order": ["hero", "featured"]
+}

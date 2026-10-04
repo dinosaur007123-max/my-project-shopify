@@ -1,0 +1,32 @@
+<section class="section">
+  <div class="container">
+    <div class="section__head reveal">
+      <h1 class="h2">{{ collection.title }}</h1>
+    </div>
+    {%- if collection.description != blank -%}<div class="rte reveal">{{ collection.description }}</div>{%- endif -%}
+
+    {%- paginate collection.products by 24 -%}
+      {%- if collection.products.size > 0 -%}
+        <div class="grid">
+          {%- for product in collection.products -%}
+            {% render 'product-card', product: product, index: forloop.index0 %}
+          {%- endfor -%}
+        </div>
+      {%- else -%}
+        <p class="empty">No products here yet.</p>
+      {%- endif -%}
+
+      {%- if paginate.pages > 1 -%}
+        <nav class="pagination" aria-label="Pagination">
+          {%- if paginate.previous -%}<a href="{{ paginate.previous.url }}">&larr; Previous</a>{%- endif -%}
+          <span>{{ paginate.current_page }} / {{ paginate.pages }}</span>
+          {%- if paginate.next -%}<a href="{{ paginate.next.url }}">Next &rarr;</a>{%- endif -%}
+        </nav>
+      {%- endif -%}
+    {%- endpaginate -%}
+  </div>
+</section>
+
+{% schema %}
+{ "name": "Collection page" }
+{% endschema %}

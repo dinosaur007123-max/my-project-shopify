@@ -1,0 +1,27 @@
+{%- comment -%} Params: product, index (optional, for staggered reveal) {%- endcomment -%}
+<article class="card reveal" style="--i: {{ index | default: 0 }}">
+  <a class="card__link" href="{{ product.url }}">
+    <div class="card__media">
+      {%- if product.featured_media -%}
+        {{ product.featured_media | image_url: width: 800 | image_tag:
+          widths: '300, 450, 600, 800',
+          sizes: '(min-width: 900px) 24vw, 48vw',
+          loading: 'lazy',
+          alt: product.featured_media.alt | default: product.title }}
+      {%- else -%}
+        <div class="card__placeholder" aria-hidden="true"></div>
+      {%- endif -%}
+      {%- unless product.available -%}<span class="badge">Sold out</span>{%- endunless -%}
+    </div>
+    <div class="card__body">
+      {%- if product.vendor != blank and product.vendor != shop.name -%}<p class="card__vendor">{{ product.vendor }}</p>{%- endif -%}
+      <h3 class="card__title">{{ product.title }}</h3>
+      <p class="card__price">
+        {%- if product.compare_at_price > product.price -%}
+          <s>{{ product.compare_at_price | money }}</s>
+        {%- endif -%}
+        {%- if product.price_varies %}From {% endif %}{{ product.price | money }}
+      </p>
+    </div>
+  </a>
+</article>
