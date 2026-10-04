@@ -1,0 +1,25 @@
+<section class="section">
+  <div class="container container--narrow">
+    <h1 class="h2 reveal">{{ page.title }}</h1>
+    {%- if page.content != blank -%}<div class="rte reveal">{{ page.content }}</div>{%- endif -%}
+
+    {%- form 'contact', class: 'contact-form' -%}
+      {%- if form.posted_successfully? -%}
+        <p class="notice" role="status">Thanks, we have your message and will reply soon.</p>
+      {%- endif -%}
+      {%- if form.errors -%}
+        <p class="notice notice--error" role="alert">Please check your details and try again.</p>
+      {%- endif -%}
+
+      <label class="field"><span>Name</span><input type="text" name="contact[name]" autocomplete="name" required></label>
+      <label class="field"><span>Email</span><input type="email" name="contact[email]" autocomplete="email" required></label>
+      <label class="field"><span>Phone (optional)</span><input type="tel" name="contact[phone]" autocomplete="tel"></label>
+      <label class="field"><span>Message</span><textarea name="contact[body]" rows="5" required></textarea></label>
+      <button type="submit" class="btn">Send message</button>
+    {%- endform -%}
+  </div>
+</section>
+
+{% schema %}
+{ "name": "Contact page" }
+{% endschema %}

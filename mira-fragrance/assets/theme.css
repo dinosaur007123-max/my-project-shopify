@@ -159,3 +159,9 @@ p { margin: 0 0 1em; }
   .js .reveal { opacity: 1; transform: none; }
   .card:hover .card__media img { transform: none; }
 }
+
+/* Contact form */
+.contact-form { display: grid; gap: 14px; margin-top: 24px; }
+.field textarea { font: inherit; font-size: 16px; color: var(--ink); padding: 12px; border: 1px solid #d9d9d9; border-radius: var(--radius); background: #fff; resize: vertical; }
+.notice { padding: 12px 14px; background: var(--soft); border-radius: var(--radius); margin: 0; }
+.notice--error { background: #fdeeee; }
