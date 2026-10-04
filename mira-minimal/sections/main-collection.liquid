@@ -1,0 +1,10 @@
+<section class="block">
+  <header class="block__head"><h1>{{ collection.title }}</h1></header>
+  {%- paginate collection.products by 12 -%}
+    <div class="grid">
+      {%- for product in collection.products -%}{% render 'product-card', product: product %}{%- else -%}<p class="muted">No products found.</p>{%- endfor -%}
+    </div>
+    {%- if paginate.pages > 1 -%}{{ paginate | default_pagination }}{%- endif -%}
+  {%- endpaginate -%}
+</section>
+{% schema %}{ "name": "Collection" }{% endschema %}

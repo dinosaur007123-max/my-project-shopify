@@ -1,0 +1,29 @@
+<section class="block block--narrow">
+  <header class="block__head"><h1>Cart</h1></header>
+  {%- if cart.item_count == 0 -%}
+    <p class="muted">Your cart is empty.</p>
+    <a class="btn" href="{{ routes.all_products_collection_url }}">Continue shopping</a>
+  {%- else -%}
+    <form action="{{ routes.cart_url }}" method="post">
+      {%- for item in cart.items -%}
+        <div class="line">
+          <a class="line__img" href="{{ item.url }}">{%- if item.image -%}{{ item.image | image_url: width: 200 | image_tag }}{%- endif -%}</a>
+          <div class="line__info">
+            <a href="{{ item.url }}">{{ item.product.title }}</a>
+            {%- unless item.product.has_only_default_variant -%}<p class="muted">{{ item.variant.title }}</p>{%- endunless -%}
+            <p class="muted">{{ item.final_price | money }}</p>
+          </div>
+          <input class="line__qty" type="number" name="updates[]" value="{{ item.quantity }}" min="0" aria-label="Quantity">
+          <p>{{ item.final_line_price | money }}</p>
+        </div>
+      {%- endfor -%}
+      <div class="cart__total"><span>Subtotal</span><strong>{{ cart.total_price | money }}</strong></div>
+      <p class="muted">Taxes and shipping calculated at checkout.</p>
+      <div class="cart__actions">
+        <button class="btn btn--ghost" type="submit" name="update">Update</button>
+        <button class="btn" type="submit" name="checkout">Check out</button>
+      </div>
+    </form>
+  {%- endif -%}
+</section>
+{% schema %}{ "name": "Cart" }{% endschema %}

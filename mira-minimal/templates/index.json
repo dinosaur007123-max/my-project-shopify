@@ -1,0 +1,8 @@
+{
+  "sections": {
+    "hero": { "type": "hero", "settings": {} },
+    "featured": { "type": "featured-collection", "settings": { "heading": "The Collection", "limit": 4 } },
+    "statement": { "type": "brand-statement", "settings": {} }
+  },
+  "order": ["hero", "featured", "statement"]
+}

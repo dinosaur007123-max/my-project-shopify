@@ -1,0 +1,14 @@
+<section class="block block--narrow">
+  <header class="block__head"><h1>{{ blog.title }}</h1></header>
+  {%- paginate blog.articles by 8 -%}
+    {%- for article in blog.articles -%}
+      <article class="post">
+        <h2><a href="{{ article.url }}">{{ article.title }}</a></h2>
+        <p class="muted">{{ article.published_at | date: '%B %d, %Y' }}</p>
+        <p>{{ article.excerpt_or_content | strip_html | truncate: 180 }}</p>
+      </article>
+    {%- endfor -%}
+    {%- if paginate.pages > 1 -%}{{ paginate | default_pagination }}{%- endif -%}
+  {%- endpaginate -%}
+</section>
+{% schema %}{ "name": "Blog" }{% endschema %}

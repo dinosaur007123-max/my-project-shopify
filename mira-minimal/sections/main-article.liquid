@@ -1,0 +1,7 @@
+<article class="block block--narrow">
+  <header class="block__head"><h1>{{ article.title }}</h1></header>
+  <p class="muted">{{ article.published_at | date: '%B %d, %Y' }}</p>
+  {%- if article.image -%}{{ article.image | image_url: width: 1200 | image_tag }}{%- endif -%}
+  <div class="rte">{{ article.content }}</div>
+</article>
+{% schema %}{ "name": "Article" }{% endschema %}

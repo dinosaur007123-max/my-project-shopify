@@ -1,0 +1,20 @@
+<header class="header">
+  <nav class="header__nav" aria-label="Main">
+    {%- for link in linklists[section.settings.menu].links -%}
+      <a href="{{ link.url }}"{% if link.active %} aria-current="page"{% endif %}>{{ link.title }}</a>
+    {%- endfor -%}
+  </nav>
+  <a class="header__logo" href="{{ routes.root_url }}" aria-label="{{ shop.name }}">
+    <img src="{{ 'mira-logo.png' | asset_url }}" alt="{{ shop.name }}" width="683" height="461">
+  </a>
+  <div class="header__tools">
+    <a href="{{ routes.search_url }}">Search</a>
+    <a href="{{ routes.cart_url }}">Cart ({{ cart.item_count }})</a>
+  </div>
+</header>
+{% schema %}
+{
+  "name": "Header",
+  "settings": [{ "type": "link_list", "id": "menu", "label": "Menu", "default": "main-menu" }]
+}
+{% endschema %}

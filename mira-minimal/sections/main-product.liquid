@@ -1,0 +1,25 @@
+{%- assign current = product.selected_or_first_available_variant -%}
+<section class="pdp">
+  <div class="pdp__media">
+    {%- for media in product.media -%}
+      {{ media | image_url: width: 1200 | image_tag: loading: 'lazy', alt: product.title }}
+    {%- endfor -%}
+  </div>
+  <div class="pdp__info">
+    <h1>{{ product.title }}</h1>
+    <p class="pdp__price">{{ current.price | money }}</p>
+    {%- form 'product', product -%}
+      {%- unless product.has_only_default_variant -%}
+        <label class="muted" for="v">Size</label>
+        <select id="v" name="id">
+          {%- for v in product.variants -%}<option value="{{ v.id }}"{% if v == current %} selected{% endif %}{% unless v.available %} disabled{% endunless %}>{{ v.title }} – {{ v.price | money }}</option>{%- endfor -%}
+        </select>
+      {%- else -%}
+        <input type="hidden" name="id" value="{{ current.id }}">
+      {%- endunless -%}
+      <button class="btn btn--full" type="submit"{% unless current.available %} disabled{% endunless %}>{% if current.available %}Add to cart{% else %}Sold out{% endif %}</button>
+    {%- endform -%}
+    <div class="rte">{{ product.description }}</div>
+  </div>
+</section>
+{% schema %}{ "name": "Product" }{% endschema %}

@@ -1,0 +1,24 @@
+<footer class="footer">
+  <img class="footer__logo" src="{{ 'mira-logo.png' | asset_url }}" alt="{{ shop.name }}" width="683" height="461">
+  <nav class="footer__nav" aria-label="Footer">
+    {%- for link in linklists[section.settings.menu].links -%}
+      <a href="{{ link.url }}">{{ link.title }}</a>
+    {%- endfor -%}
+  </nav>
+  {% form 'customer', class: 'footer__news' %}
+    <input type="hidden" name="contact[tags]" value="newsletter">
+    {%- if form.posted_successfully? -%}
+      <p>Thank you for subscribing.</p>
+    {%- else -%}
+      <input type="email" name="contact[email]" placeholder="Email address" aria-label="Email" required>
+      <button class="btn btn--ghost" type="submit">Subscribe</button>
+    {%- endif -%}
+  {% endform %}
+  <p class="footer__copy">&copy; {{ 'now' | date: '%Y' }} {{ shop.name }}</p>
+</footer>
+{% schema %}
+{
+  "name": "Footer",
+  "settings": [{ "type": "link_list", "id": "menu", "label": "Menu", "default": "footer" }]
+}
+{% endschema %}

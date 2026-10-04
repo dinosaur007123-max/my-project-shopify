@@ -1,0 +1,19 @@
+<section class="block">
+  <header class="block__head"><h1>Search</h1></header>
+  <form action="{{ routes.search_url }}" class="searchform">
+    <input type="search" name="q" value="{{ search.terms | escape }}" placeholder="Search" aria-label="Search">
+    <button class="btn" type="submit">Search</button>
+  </form>
+  {%- if search.performed -%}
+    {%- paginate search.results by 12 -%}
+      <div class="grid">
+        {%- for item in search.results -%}
+          {%- if item.object_type == 'product' -%}{% render 'product-card', product: item %}
+          {%- else -%}<a class="card" href="{{ item.url }}"><h3>{{ item.title }}</h3></a>{%- endif -%}
+        {%- else -%}<p class="muted">No results for “{{ search.terms }}”.</p>{%- endfor -%}
+      </div>
+      {%- if paginate.pages > 1 -%}{{ paginate | default_pagination }}{%- endif -%}
+    {%- endpaginate -%}
+  {%- endif -%}
+</section>
+{% schema %}{ "name": "Search" }{% endschema %}

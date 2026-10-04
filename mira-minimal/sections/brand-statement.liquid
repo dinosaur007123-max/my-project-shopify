@@ -1,0 +1,12 @@
+<section class="statement">
+  <p>{{ section.settings.text }}</p>
+</section>
+{% schema %}
+{
+  "name": "Brand statement",
+  "settings": [
+    { "type": "textarea", "id": "text", "label": "Text", "default": "Mira creates quiet, considered fragrances. Few notes, beautifully balanced, made to be worn every day." }
+  ],
+  "presets": [{ "name": "Brand statement" }]
+}
+{% endschema %}

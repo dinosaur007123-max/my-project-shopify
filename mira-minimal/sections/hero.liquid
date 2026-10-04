@@ -1,0 +1,22 @@
+<section class="hero">
+  <img class="hero__img" src="{{ 'hero.webp' | asset_url }}" alt="{{ section.settings.heading | escape }}" width="2000" height="1131" fetchpriority="high">
+  <div class="hero__copy">
+    <p class="eyebrow">{{ section.settings.eyebrow }}</p>
+    <h1>{{ section.settings.heading }}</h1>
+    {%- if section.settings.button_label != blank -%}
+      <a class="btn" href="{{ section.settings.button_link | default: routes.all_products_collection_url }}">{{ section.settings.button_label }}</a>
+    {%- endif -%}
+  </div>
+</section>
+{% schema %}
+{
+  "name": "Hero",
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "New collection" },
+    { "type": "text", "id": "heading", "label": "Heading", "default": "Fragrance, simply." },
+    { "type": "text", "id": "button_label", "label": "Button label", "default": "Shop the collection" },
+    { "type": "url", "id": "button_link", "label": "Button link" }
+  ],
+  "presets": [{ "name": "Hero" }]
+}
+{% endschema %}

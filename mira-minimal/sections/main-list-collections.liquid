@@ -1,0 +1,12 @@
+<section class="block">
+  <header class="block__head"><h1>Collections</h1></header>
+  <div class="grid">
+    {%- for c in collections -%}
+      <a class="card" href="{{ c.url }}">
+        <div class="card__media">{%- if c.image -%}{{ c.image | image_url: width: 800 | image_tag: loading: 'lazy' }}{%- else -%}<div class="card__ph"></div>{%- endif -%}</div>
+        <h3>{{ c.title }}</h3>
+      </a>
+    {%- endfor -%}
+  </div>
+</section>
+{% schema %}{ "name": "Collections list" }{% endschema %}
